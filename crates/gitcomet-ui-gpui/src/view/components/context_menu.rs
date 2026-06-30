@@ -155,7 +155,7 @@ pub fn context_menu_separator(theme: AppTheme, ui_scale: impl Into<UiScale>) -> 
         .self_stretch()
         .my(scaled_px(2.0))
         .border_t_1()
-        .border_color(theme.colors.border)
+        .border_color(theme.colors.border_variant)
 }
 
 pub fn context_menu_entry(

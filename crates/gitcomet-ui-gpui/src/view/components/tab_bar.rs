@@ -2,8 +2,6 @@ use crate::theme::AppTheme;
 use gpui::prelude::*;
 use gpui::{AnyElement, Div, ElementId, IntoElement, Stateful, div, px};
 
-use super::Tab;
-
 pub struct TabBar {
     id: ElementId,
     tabs: Vec<AnyElement>,
@@ -29,7 +27,7 @@ impl TabBar {
         self
     }
 
-    pub fn render(self, theme: AppTheme, ui_scale_percent: u32) -> Stateful<Div> {
+    pub fn render(self, _theme: AppTheme, _ui_scale_percent: u32) -> Stateful<Div> {
         let tabs = div()
             .id((self.id.clone(), "tabs"))
             .flex()
@@ -46,23 +44,13 @@ impl TabBar {
             .flex_none()
             .items_center()
             .w_full()
-            .h(Tab::container_height(ui_scale_percent))
-            .bg(theme.colors.surface_bg)
+            .h_full()
             .child(
                 div()
                     .relative()
                     .flex_1()
                     .h_full()
                     .overflow_x_hidden()
-                    .child(
-                        div()
-                            .absolute()
-                            .top_0()
-                            .left_0()
-                            .size_full()
-                            .border_b_1()
-                            .border_color(theme.colors.border),
-                    )
                     .child(tabs),
             )
             .when(!self.end.is_empty(), |this| {
@@ -72,9 +60,6 @@ impl TabBar {
                         .items_center()
                         .gap(px(0.0))
                         .h_full()
-                        .border_b_1()
-                        .border_l_1()
-                        .border_color(theme.colors.border)
                         .children(self.end),
                 )
             })

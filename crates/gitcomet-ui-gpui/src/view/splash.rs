@@ -6,6 +6,10 @@ use std::sync::OnceLock;
 const SPLASH_BACKDROP_PNG_BYTES: &[u8] =
     include_bytes!(concat!(env!("OUT_DIR"), "/splash_backdrop.png"));
 const PANE_TOGGLE_EDGE_INSET_PX: f32 = 3.0;
+/// Gap (on the 8px grid) around the inset content/details cards so they read as
+/// rounded surfaces floating on the shared window canvas, with the sidebar
+/// blended into that canvas.
+const CONTENT_CARD_GAP_PX: f32 = 8.0;
 static SPLASH_BACKDROP_IMAGE_CACHE: OnceLock<Arc<gpui::Image>> = OnceLock::new();
 
 struct SplashInteractiveColors {
@@ -817,10 +821,6 @@ impl GitCometView {
                     .flex_col()
                     .flex_1()
                     .min_h(px(0.0))
-                    .child(stable_cached_fixed_height_view(
-                        self.repo_tabs_bar.clone(),
-                        components::Tab::container_height(self.ui_scale_percent),
-                    ))
                     .child(self.open_repo_panel(cx))
                     .child(stable_cached_fixed_height_view(
                         self.action_bar.clone(),
@@ -838,9 +838,9 @@ impl GitCometView {
                                     .relative()
                                     .w(self.sidebar_render_width)
                                     .min_h(px(0.0))
-                                    .bg(theme.colors.surface_bg)
+                                    .bg(theme.colors.window_bg)
                                     .when(self.sidebar_collapsed, |d| {
-                                        d.border_r_1().border_color(theme.colors.border)
+                                        d.border_r_1().border_color(theme.colors.border_variant)
                                     })
                                     .when(!self.sidebar_collapsed, |d| {
                                         d.child(self.sidebar_pane.clone())
@@ -882,6 +882,12 @@ impl GitCometView {
                                     .flex_1()
                                     .min_w(px(0.0))
                                     .min_h(px(0.0))
+                                    .my(px(CONTENT_CARD_GAP_PX))
+                                    .rounded(px(theme.radii.panel))
+                                    .border_1()
+                                    .border_color(theme.colors.border)
+                                    .overflow_hidden()
+                                    .bg(theme.colors.surface_bg)
                                     .when_some(terminal_panel, |d, terminal_panel| {
                                         d.flex()
                                             .flex_col()
@@ -909,9 +915,13 @@ impl GitCometView {
                                     .min_h(px(0.0))
                                     .flex()
                                     .flex_col()
-                                    .when(self.details_collapsed, |d| {
-                                        d.border_l_1().border_color(theme.colors.border)
-                                    })
+                                    .my(px(CONTENT_CARD_GAP_PX))
+                                    .mr(px(CONTENT_CARD_GAP_PX))
+                                    .rounded(px(theme.radii.panel))
+                                    .border_1()
+                                    .border_color(theme.colors.border)
+                                    .overflow_hidden()
+                                    .bg(theme.colors.surface_bg)
                                     .when(!self.details_collapsed, |d| {
                                         d.child(
                                             div()

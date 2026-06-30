@@ -475,8 +475,8 @@ impl CommitShaHoverMenu {
             .bg(self.theme.colors.surface_bg_elevated)
             .border_1()
             .border_color(self.theme.colors.border)
-            .rounded(px(self.theme.radii.row))
-            .shadow_lg()
+            .rounded(px(self.theme.radii.popover))
+            .shadow(crate::theme::shadow_popover(self.theme))
             .track_focus(&self.menu_focus_handle)
             .on_hover(cx.listener(Self::on_menu_hover))
             .on_mouse_down(MouseButton::Left, cx.listener(Self::on_menu_mouse_down));

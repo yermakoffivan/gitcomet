@@ -2939,8 +2939,8 @@ impl PopoverHost {
             .bg(theme.colors.surface_bg_elevated)
             .border_1()
             .border_color(popover_border_color)
-            .rounded(px(theme.radii.panel))
-            .shadow_lg()
+            .rounded(px(theme.radii.popover))
+            .shadow(crate::theme::shadow_modal(theme))
             .overflow_hidden()
             .p_1()
             .child(panel);

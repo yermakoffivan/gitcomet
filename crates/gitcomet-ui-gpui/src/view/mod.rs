@@ -2824,7 +2824,7 @@ impl GitCometView {
             .cursor(CursorStyle::ResizeLeftRight)
             .hover(move |s| s.bg(with_alpha(theme.colors.hover, 0.65)))
             .active(move |s| s.bg(theme.colors.active))
-            .child(div().w(px(1.0)).h_full().bg(theme.colors.border))
+            .child(div().w(px(1.0)).h_full().bg(theme.colors.border_variant))
             .on_drag(handle, |_handle, _offset, _window, cx| {
                 cx.new(|_cx| PaneResizeDragGhost)
             })

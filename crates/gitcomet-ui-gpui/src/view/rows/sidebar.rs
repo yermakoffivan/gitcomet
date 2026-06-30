@@ -1291,7 +1291,6 @@ impl SidebarPaneView {
                     collapsed,
                     collapse_key,
                 } => {
-                    let group_text_color = branch_tree_color(section);
                     let group_icon_color = match section {
                         BranchSection::Local => icon_primary,
                         BranchSection::Remote => theme.colors.text_muted,
@@ -1310,8 +1309,8 @@ impl SidebarPaneView {
                         .hover(move |s| s.bg(theme.colors.hover))
                         .active(move |s| s.bg(theme.colors.active))
                         .text_xs()
-                        .font_weight(FontWeight::BOLD)
-                        .text_color(group_text_color)
+                        .font_weight(FontWeight::SEMIBOLD)
+                        .text_color(theme.colors.text_muted)
                         .child(tree_toggle_slot(Some(collapsed)))
                         .child(tree_icon_slot(
                             super::super::file_icons::folder_icon(!collapsed),

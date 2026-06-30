@@ -651,6 +651,38 @@ impl Render for TitleBarView {
                 d.child(windows_brand())
             });
 
+        // Browser-style: when a workspace is open, the repo tabs live in the
+        // title bar's middle. Keep a fixed draggable strip beside them so the
+        // window can still be moved by the empty title-bar area.
+        let repo_tabs = if workspace_actions_enabled {
+            self.root_view
+                .upgrade()
+                .map(|root| root.read(cx).repo_tabs_bar.clone())
+        } else {
+            None
+        };
+        let middle: AnyElement = if let Some(repo_tabs) = repo_tabs {
+            div()
+                .flex()
+                .flex_row()
+                .items_center()
+                .flex_1()
+                .min_w(px(0.0))
+                .h_full()
+                .child(
+                    div()
+                        .flex_1()
+                        .min_w(px(0.0))
+                        .h_full()
+                        .overflow_hidden()
+                        .child(repo_tabs),
+                )
+                .child(drag_region.w(px(64.0)).flex_none())
+                .into_any_element()
+        } else {
+            drag_region.into_any_element()
+        };
+
         div()
             .id("title_bar")
             .flex()
@@ -661,7 +693,7 @@ impl Render for TitleBarView {
             .border_b_1()
             .border_color(bar_border)
             .child(leading)
-            .child(drag_region)
+            .child(middle)
             .child(
                 div()
                     .flex()
@@ -708,7 +740,7 @@ pub(crate) fn window_frame(
             .border_1()
             .border_color(window_frame_outline_color(theme))
             .when(!cfg!(target_os = "macos"), |d| {
-                d.rounded(px(theme.radii.panel)).shadow_lg()
+                d.rounded(px(theme.radii.window)).shadow_lg()
             });
     }
 

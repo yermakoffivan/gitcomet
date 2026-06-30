@@ -489,8 +489,8 @@ impl SidebarPaneView {
             .flex_1()
             .min_h(px(0.0))
             .pt(px(SIDEBAR_TOP_INSET_PX))
-            .pl(px(2.0))
-            .pr(px(2.0) + scrollbar_gutter)
+            .pl(px(components::ROW_HIGHLIGHT_INSET_PX))
+            .pr(px(components::ROW_HIGHLIGHT_INSET_PX) + scrollbar_gutter)
             .child(list);
         let panel_body: AnyElement = div()
             .id("branch_sidebar_scroll_container")
@@ -524,14 +524,22 @@ impl SidebarPaneView {
         cx: &mut gpui::Context<Self>,
     ) -> AnyElement {
         let search_bar = div()
-            .flex()
-            .flex_row()
-            .items_center()
-            .px(px(4.0))
-            .py(px(2.0))
-            .border_b_1()
-            .border_color(theme.colors.border)
-            .child(self.file_browser_search_input.clone());
+            .px(px(8.0))
+            .pt(px(8.0))
+            .pb(px(6.0))
+            .child(
+                div()
+                    .flex()
+                    .flex_row()
+                    .items_center()
+                    .h(px(28.0))
+                    .px(px(8.0))
+                    .rounded(px(theme.radii.control))
+                    .border_1()
+                    .border_color(theme.colors.border)
+                    .bg(theme.colors.surface_bg_elevated)
+                    .child(self.file_browser_search_input.clone()),
+            );
 
         let source_text =
             self.active_repo()
@@ -594,8 +602,8 @@ impl SidebarPaneView {
                 .flex_1()
                 .min_h(px(0.0))
                 .pt(px(2.0))
-                .pl(px(2.0))
-                .pr(px(2.0) + scrollbar_gutter)
+                .pl(px(components::ROW_HIGHLIGHT_INSET_PX))
+                .pr(px(components::ROW_HIGHLIGHT_INSET_PX) + scrollbar_gutter)
                 .child(list);
             div()
                 .id("file_browser_scroll_container")

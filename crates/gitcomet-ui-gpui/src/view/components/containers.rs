@@ -114,10 +114,10 @@ pub fn split_columns_header(
         .items_center()
         .text_xs()
         .text_color(theme.colors.text_muted)
-        .bg(theme.colors.surface_bg_elevated)
+        .bg(theme.colors.surface_bg)
         .border_b_1()
-        .border_color(theme.colors.border)
+        .border_color(theme.colors.border_variant)
         .child(div().flex_1().min_w(px(0.0)).px_2().child(left.into()))
-        .child(div().w(px(1.0)).h_full().bg(theme.colors.border))
+        .child(div().w(px(1.0)).h_full().bg(theme.colors.border_variant))
         .child(div().flex_1().min_w(px(0.0)).px_2().child(right.into()))
 }

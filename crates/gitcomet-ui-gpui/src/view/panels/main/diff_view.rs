@@ -965,11 +965,11 @@ impl MainPaneView {
             .gap(px(2.0))
             .px(px(4.0))
             .py(px(2.0))
-            .rounded(px(theme.radii.row))
+            .rounded(px(theme.radii.control))
             .border_1()
             .border_color(theme.colors.border)
             .bg(theme.colors.surface_bg_elevated)
-            .shadow_sm()
+            .shadow(crate::theme::shadow_surface(theme))
             .child(
                 div()
                     .relative()

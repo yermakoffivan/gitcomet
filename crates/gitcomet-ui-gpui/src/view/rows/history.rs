@@ -1833,7 +1833,7 @@ impl HistoryView {
     }
 }
 
-const HISTORY_ROW_HEIGHT_PX: f32 = 24.0;
+const HISTORY_ROW_HEIGHT_PX: f32 = 28.0;
 
 fn history_worktree_node_color(
     theme: AppTheme,

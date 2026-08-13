@@ -42,7 +42,7 @@ anyhow = "1"
 clap = { version = "4.6.6", features = ["derive"] }
 criterion = "0.8.2"
 fontdb = "0.24.0"
-futures = "0.3.33"
+futures = "0.3.34"
 gix = { version = "0.86.0", default-features = false, features = ["max-performance-safe", "comfort", "basic", "auto-chain-error", "status", "blame", "sha1"] }
 gpui = { git = "https://github.com/Havunen/gpui-ce.git", rev = "f5c044833b803206ebc5c91a10361ec28f389c3b" }
 gpui_platform = { git = "https://github.com/Havunen/gpui-ce.git", rev = "f5c044833b803206ebc5c91a10361ec28f389c3b", features = ["font-kit"] }
